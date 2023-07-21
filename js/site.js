@@ -8,9 +8,33 @@ function getValues() {
     startNumber = Number(startNumber);
     endNumber = Number(endNumber);
 
-    let numberArray = generateNumbers(startNumber, endNumber);
+    //making sure we have a number in field
+    if (isNaN(startNumber) == true || isNaN(endNumber) == true) {
 
-    displayNumbers(numberArray);
+        Swal.fire({
+            title: 'Oops!',
+            text: 'Hundo only works with real numbers.',
+            icon: 'error',
+            backdrop: false
+        });
+
+        //make sure end number is greater than start number
+    } else if (startNumber > endNumber) {
+
+        Swal.fire({
+            title: 'Oops!',
+            text: 'The starting number must be less than the ending number.',
+            icon: 'error',
+            backdrop: false
+        });
+        
+    } else {
+        let numberArray = generateNumbers(startNumber, endNumber);
+
+        displayNumbers(numberArray);
+    }
+
+
 }
 
 // Busniess Logic - Creates every number in the input range
@@ -19,12 +43,12 @@ function generateNumbers(start, end) {
 
     let range = [];
 
-    for(let number = start; number <= end; number = number + 1) {
-        
+    for (let number = start; number <= end; number = number + 1) {
+
         range.push(number);
     }
 
-    return range; 
+    return range;
 }
 
 // Puts the numbers on the page
